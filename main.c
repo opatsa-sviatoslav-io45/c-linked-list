@@ -6,15 +6,15 @@ typedef struct Book
 {
 	char			*name;
 	float			price;
-	unsigned short	pages;
+	unsigned int	pages;
 	char			*lang;
-	unsigned short	year;
+	unsigned int	year;
 } Book;
 
 void
 printbook(Book* book)
 {
-	printf("Book \"%s\" costs %f, has %d pages, written in language %s and was released in %i\n",
+	printf("Book \"%s\" costs %.2f, has %d pages, written in language %s and was released in %i\n",
 		book->name, book->price, book->pages, book->lang, book->year);
 }
 
@@ -24,8 +24,9 @@ printbooks(Node* node)
 	/* walk down the list until node without child */
 	while(node != NULL){
 		printbook(node->data);
-		node = node->next;
+		printf("Entry addr %#x; next element at %#x\n", node, node = node->next);
 	}
+	printf("End reached\n\n");
 }
 
 int
@@ -58,7 +59,10 @@ main(int argc, char** argv)
 
 	if(appendnode(root, &second) == NULL || appendnode(root, &third) == NULL) return 1;
 
-	
+	printbooks(root);	
+
+	removenode(root, 1);
+
 	printbooks(root);
 
 	return 0;
